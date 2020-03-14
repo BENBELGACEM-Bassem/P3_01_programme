@@ -8,7 +8,7 @@ class Game:
 		self.score=0
 
 	def main(self):
-
+		#Draw our Characters
 		surface.blit(Ether.image, Ether.position)
 		surface.blit(Plastic_tube.image, Plastic_tube.position)
 		surface.blit(Needle.image, Needle.position)
@@ -16,7 +16,6 @@ class Game:
 		#Draw the maze on the screen 
 		Maze.draw_maze(surface,"Brick.png")
 		running = True
-
 		#Need to know if McGyver already occupied an object spot so we don't increase the score more than once as he enters that spot more than once
 		Ether_already_taken=False
 		Plastic_tube_already_taken=False
@@ -47,7 +46,6 @@ class Game:
 							Needle_already_taken=True
 
 
-
 					if event.key == pygame.K_DOWN and MacGyver.nearest_lower_spot_empty():
 						MacGyver.move_down()
 						if (MacGyver.picks_up(Ether) and Ether_already_taken==False):
@@ -59,8 +57,6 @@ class Game:
 						if (MacGyver.picks_up(Needle) and Needle_already_taken==False):
 							self.score+=1
 							Needle_already_taken=True
-
-
 
 
 					if event.key == pygame.K_RIGHT and MacGyver.nearest_right_spot_empty():
@@ -89,9 +85,12 @@ class Game:
 							Needle_already_taken=True
 
 
-			
+			self.score_display()
 			#MacGyver has to be blit under the while loop which takes care of updating his position when handling events
 			surface.blit(MacGyver.image, (MacGyver.x, MacGyver.y))
+			#Adding the syringe as soon as MacGyver collects the three objects
+			if self.score==3:
+				surface.blit(pygame.image.load("seringue.png"),(MacGyver.x, MacGyver.y))
 			pygame.display.update()
 			clock.tick(60)
 
@@ -105,8 +104,6 @@ class Game:
 
 	def display_msg(self,text):
 
-		#Define color
-		White=(255,255,255)
 		#Define fonts
 		smalltext=pygame.font.Font('freesansbold.ttf', 20)
 		largetext=pygame.font.Font('freesansbold.ttf', 150)
@@ -120,12 +117,11 @@ class Game:
 		textrectangle=textsurface.get_rect()
 		textrectangle.center=surface_width/2,(surface_height/2)+100
 		surface.blit(textsurface,textrectangle)
-		#Dispaly messages on the screen for 2 seconds
+		#Dispaly messages on the screen 
 		pygame.display.update()
-		time.sleep(2)
+
 
 	def replay_or_quit(self):
-		black=(0,0,0)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -143,6 +139,25 @@ class Game:
 	def loose(self):
 		self.display_msg("You loose!")
 		self.replay_or_quit()
+
+	def score_display(self):
+		#Define fonts
+		scoring_font=pygame.font.Font('freesansbold.ttf', 16)
+		#Create an image (Surface) of the principal text, then blit this image onto another Surface.
+		textsurface=scoring_font.render("Score: " + str(self.score), True, White)
+		textrectangle=textsurface.get_rect()
+		textrectangle.center=surface_width-2*Maze.sprite_dimension,Maze.sprite_dimension/2
+		#If the score changes, then erase the previous text and blit the new one.
+		#This condition will be maintained for score 1 and score 2 as they are diffrent from 0
+		if self.score!=0:
+			textsurface.fill(black)
+			surface.blit(textsurface,textrectangle)
+			textsurface=scoring_font.render("Score: " + str(self.score), True, White)			
+
+		surface.blit(textsurface,textrectangle)
+		pygame.display.update()
+
+
 
 
 #Create a game instance

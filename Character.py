@@ -23,16 +23,16 @@ class Hero:
 	#The following functions define four possible mouvement.
 	#Within each mouvement function, draw a black rectangle in same position of our hero image before moving it, so the previous state is hidden
 	def move_up(self):
-		pygame.draw.rect(surface,(0,0,0),(self.x, self.y, self.width, self.height))
+		pygame.draw.rect(surface,black,(self.x, self.y, self.width, self.height))
 		self.y-=self.speed	
 	def move_down(self):
-		pygame.draw.rect(surface,(0,0,0),(self.x, self.y, self.width, self.height))
+		pygame.draw.rect(surface,black,(self.x, self.y, self.width, self.height))
 		self.y+=self.speed
 	def move_right(self):
-		pygame.draw.rect(surface,(0,0,0),(self.x, self.y, self.width, self.height))
+		pygame.draw.rect(surface,black,(self.x, self.y, self.width, self.height))
 		self.x+=self.speed
 	def move_left(self):
-		pygame.draw.rect(surface,(0,0,0),(self.x, self.y, self.width, self.height))
+		pygame.draw.rect(surface,black,(self.x, self.y, self.width, self.height))
 		self.x-=self.speed		
 
 	def nearest_left_spot_empty(self):

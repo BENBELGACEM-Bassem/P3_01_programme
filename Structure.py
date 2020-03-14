@@ -8,6 +8,11 @@ surface_height=770
 surface=pygame.display.set_mode((surface_width,surface_height))
 pygame.display.set_caption("Escape_game")
 clock=pygame.time.Clock()
+#Define colors that will be used
+White=(255,255,255)
+black=(0,0,0)
+
+
 
 #The class structure contains needed function and properties to define the maze
 class Structure:
