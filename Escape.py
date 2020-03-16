@@ -1,6 +1,6 @@
+'''Head module of the game to launch and quit'''
 
 import game
-
 
 # Create a game instance
 Escape = game.Game()
