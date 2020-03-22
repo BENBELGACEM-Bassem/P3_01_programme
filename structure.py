@@ -1,7 +1,7 @@
 # This module contains the pygame boiler plate to initiate pygame module
 # and the Structure class to create the maze
-
 import pygame
+from json import loads
 
 # Pygame boiler plate
 pygame.init()
@@ -23,23 +23,11 @@ class Structure:
     def __init__(self):
         """Define properties of the maze"""
         self.sprite_dimension = 45
-        self.map = [[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-                    [2, 1, 1, 1, "E", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                    [2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
-                    [2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2],
-                    [2, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 2],
-                    [2, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 2],
-                    [2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2],
-                    [2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2],
-                    [2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 2],
-                    [2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 2],
-                    [2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 2],
-                    [2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 2],
-                    [2, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 2],
-                    [2, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2],
-                    [2, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 2],
-                    [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, "S", 1, 2],
-                    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "G", 2, 2]]
+        # Import the labyrinth matrix from a dedicated file
+        # in way that makes it a nested list
+        with open('labyrinth.txt', 'r') as f:
+            string_enclosed_list = [line.strip() for line in f.readlines()]
+            self.map = [loads(row) for row in string_enclosed_list]
 
         self.entrance = [(column * self.sprite_dimension,
                          row * self.sprite_dimension)
