@@ -1,5 +1,5 @@
-''' This module contains the pygame boiler plate to initiate pygame module and
-the Structure class to create the maze'''
+# This module contains the pygame boiler plate to initiate pygame module
+# and the Structure class to create the maze
 
 import pygame
 
@@ -17,11 +17,11 @@ Black = (0, 0, 0)
 
 class Structure:
 
-    ''' The class Structure contains needed function and properties
-    to define the maze '''
+    """The class Structure contains needed function and properties
+    to define the maze"""
 
     def __init__(self):
-        '''Define properties of the maze'''
+        """Define properties of the maze"""
         self.sprite_dimension = 45
         self.map = [[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
                     [2, 1, 1, 1, "E", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
@@ -53,7 +53,7 @@ class Structure:
                      if self.map[row][column] == "S"]
 
     def draw_maze(self, surface, sprite):
-        '''Once called, this functopn will draw the Maze'''
+        """Once called, this functopn will draw the Maze"""
         image = pygame.image.load(sprite)
         for row in range(len(self.map)):
             for column in range(len(self.map[row])):
@@ -64,7 +64,7 @@ class Structure:
 
     @property
     def objects_locations(self):
-        '''Define the empty positions inside the Maze for objects'''
+        """Define the empty positions inside the Maze for objects"""
         objects_locations = []
         for row in range(len(self.map)):
             for column in range(len(self.map[row])):
@@ -76,7 +76,7 @@ class Structure:
 
     @property
     def passage_positions(self):
-        ''' Define the empty positions inside the Maze for MacGyver'''
+        """Define the empty positions inside the Maze for MacGyver"""
         passage_positions = [(column * self.sprite_dimension,
                              row * self.sprite_dimension)
                              for row in range(len(self.map))
@@ -88,7 +88,7 @@ class Structure:
 
     @property
     def enemy_location(self):
-        '''Define the empty positions inside the Maze for the guardian'''
+        """Define the empty positions inside the Maze for the guardian"""
         enemy_location = []
         for row in range(len(self.map)):
             for column in range(len(self.map[row])):

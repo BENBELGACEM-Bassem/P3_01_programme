@@ -1,5 +1,5 @@
-''' This module is responsible for managing the game,
-controlling the win-loose logic and displaying the score'''
+# This module is responsible for managing the game,
+# controlling the win-loose logic and displaying the score
 
 import time
 
@@ -14,15 +14,15 @@ MacGyver = ch.Hero()
 
 
 class Game:
-    ''' This class is responsible for launching the game,
-    controlling the win-loose logic and displaying the score'''
+    """This class is responsible for launching the game,
+    controlling the win-loose logic and displaying the score"""
     def __init__(self):
-        '''Defines game properties'''
+        """Defines game properties"""
         self.score = 0
 
     def main(self):
-        '''Main function of the game that controls launching, playing,
-        winning or loosing and quitting'''
+        """Main function of the game that controls launching, playing,
+        winning or loosing and quitting"""
         # Draw our Characters
         ch.st.surface.blit(Ether.image, Ether.position)
         ch.st.surface.blit(Plastic_tube.image, Plastic_tube.position)
@@ -137,7 +137,7 @@ class Game:
                 self.loose()
 
     def display_msg(self, text):
-        '''Displays winning or loosing message at the end of the game'''
+        """Displays winning or loosing message at the end of the game"""
         # Define fonts
         smalltext = ch.st.pygame.font.Font('freesansbold.ttf', 20)
         largetext = ch.st.pygame.font.Font('freesansbold.ttf', 150)
@@ -165,8 +165,8 @@ class Game:
         time.sleep(3)
 
     def replay_or_quit(self):
-        '''Adapt the game to the player decision once the game is over:
-        quitting or playing again'''
+        """Adapt the game to the player decision once the game is over:
+        quitting or playing again"""
         for event in ch.st.pygame.event.get():
             if event.type == ch.st.pygame.QUIT:
                 ch.st.pygame.quit()
@@ -178,17 +178,17 @@ class Game:
                 self.main()
 
     def win(self):
-        '''Displays winning message and invites the player to quit or replay'''
+        """Displays winning message and invites the player to quit or replay"""
         self.display_msg("You win!")
         self.replay_or_quit()
 
     def loose(self):
-        '''Displays loosing message and invites the player to quit or replay'''
+        """Displays loosing message and invites the player to quit or replay"""
         self.display_msg("You loose!")
         self.replay_or_quit()
 
     def score_display(self):
-        '''Displays the score'''
+        """Displays the score"""
         # Define fonts
         scoring_font = ch.st.pygame.font.Font('freesansbold.ttf', 16)
         # Create an image (Surface) of the principal text, then blit this image

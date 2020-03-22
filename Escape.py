@@ -1,4 +1,6 @@
-'''Head module of the game to launch and quit'''
+#! Escape_game/project_env/bin/python
+# coding: utf-8
+# Head module of the game to launch and quit
 
 import game
 
