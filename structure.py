@@ -1,18 +1,20 @@
 # This module contains the pygame boiler plate to initiate pygame module
 # and the Structure class to create the maze
-import pygame
 from json import loads
+
+import pygame
+
 
 # Pygame boiler plate
 pygame.init()
-surface_width = 770
-surface_height = 770
-surface = pygame.display.set_mode((surface_width, surface_height))
+SURFACE_WIDTH = 770
+SURFACE_HEIGHT = 770
+SURFACE = pygame.display.set_mode((SURFACE_WIDTH, SURFACE_HEIGHT))
 pygame.display.set_caption("Escape_game")
-clock = pygame.time.Clock()
+CLOCK = pygame.time.Clock()
 # Define colors that will be used
-White = (255, 255, 255)
-Black = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 
 class Structure:
@@ -40,13 +42,13 @@ class Structure:
                      for column in range(len(self.map[row]))
                      if self.map[row][column] == "S"]
 
-    def draw_maze(self, surface, sprite):
+    def draw_maze(self, SURFACE, sprite):
         """Once called, this functopn will draw the Maze"""
         image = pygame.image.load(sprite)
         for row in range(len(self.map)):
             for column in range(len(self.map[row])):
                 if self.map[row][column] == 1:
-                    surface.blit(image,
+                    SURFACE.blit(image,
                                  (column * self.sprite_dimension,
                                   row * self.sprite_dimension))
 

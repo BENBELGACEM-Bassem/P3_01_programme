@@ -4,8 +4,8 @@ from random import sample
 
 import structure as st
 
-# Create Maze instance
-Maze = st.Structure()
+# Create maze instance
+maze = st.Structure()
 
 
 class Hero:
@@ -16,24 +16,24 @@ class Hero:
         self.height = 40
         # Putting MacGyver at the center of the entrance spot
         self.distance_to_horizontal_edge = (
-            Maze.sprite_dimension - self.width) / 2
+            maze.sprite_dimension - self.width) / 2
         self.distance_to_vertical_edge = (
-            Maze.sprite_dimension - self.height) / 2
-        self.x = Maze.entrance[0][0] + self.distance_to_horizontal_edge
-        self.y = Maze.entrance[0][1] + self.distance_to_vertical_edge
+            maze.sprite_dimension - self.height) / 2
+        self.x = maze.entrance[0][0] + self.distance_to_horizontal_edge
+        self.y = maze.entrance[0][1] + self.distance_to_vertical_edge
         # MacGyver move by a step equal to sprite dimension
-        self.speed = Maze.sprite_dimension
+        self.speed = maze.sprite_dimension
         self.image = st.pygame.image.load("MacGyver.png")
         self.start_position = (self.x, self.y)
 
     # The following functions define four possible mouvements.
-    # Each mouvement function, draws a black rectangle in the previous position
+    # Each mouvement function, draws a BLACK rectangle in the previous position
     # This will allow to hide objects after collecting them
     def moves_up(self):
-        """Once called the hero moves up and prvious position becomes black"""
+        """Once called the hero moves up and prvious position becomes BLACK"""
         st.pygame.draw.rect(
-            st.surface,
-            st.Black,
+            st.SURFACE,
+            st.BLACK,
             (self.x,
              self.y,
              self.width,
@@ -41,10 +41,10 @@ class Hero:
         self.y -= self.speed
 
     def moves_down(self):
-        """Once called hero moves down and prvious position becomes black"""
+        """Once called hero moves down and prvious position becomes BLACK"""
         st.pygame.draw.rect(
-            st.surface,
-            st.Black,
+            st.SURFACE,
+            st.BLACK,
             (self.x,
              self.y,
              self.width,
@@ -52,10 +52,10 @@ class Hero:
         self.y += self.speed
 
     def moves_right(self):
-        """Once called hero moves right and prvious position becomes black"""
+        """Once called hero moves right and prvious position becomes BLACK"""
         st.pygame.draw.rect(
-            st.surface,
-            st.Black,
+            st.SURFACE,
+            st.BLACK,
             (self.x,
              self.y,
              self.width,
@@ -63,10 +63,10 @@ class Hero:
         self.x += self.speed
 
     def moves_left(self):
-        """Once called hero moves left and prvious position becomes black"""
+        """Once called hero moves left and prvious position becomes BLACK"""
         st.pygame.draw.rect(
-            st.surface,
-            st.Black,
+            st.SURFACE,
+            st.BLACK,
             (self.x,
              self.y,
              self.width,
@@ -75,35 +75,35 @@ class Hero:
 
     def nearest_left_spot_empty(self):
         """Returns True if the nearest left (x,y) couple to the hero, is within
-        passage_positions list,containing empty spots of the Maze"""
+        passage_positions list,containing empty spots of the maze"""
         return ((self.x - (self.distance_to_horizontal_edge +
-                Maze.sprite_dimension)),
+                maze.sprite_dimension)),
                 (self.y -
-                 self.distance_to_vertical_edge)) in Maze.passage_positions
+                 self.distance_to_vertical_edge)) in maze.passage_positions
 
     def nearest_right_spot_empty(self):
         """Returns True if the nearest right (x,y) couple to the hero, is within
-        passage_positions list,containing empty spots of the Maze"""
-        return (((self.x + Maze.sprite_dimension -
+        passage_positions list,containing empty spots of the maze"""
+        return (((self.x + maze.sprite_dimension -
                  self.distance_to_horizontal_edge),
                 (self.y - self.distance_to_vertical_edge)) in
-                Maze.passage_positions)
+                maze.passage_positions)
 
     def nearest_upper_spot_empty(self):
         """Returns True if the nearest upper (x,y) couple to the hero, is within
-        passage_positions list,containing empty spots of the Maze"""
+        passage_positions list,containing empty spots of the maze"""
         return ((self.x -
                  self.distance_to_horizontal_edge), self.y -
                 (self.distance_to_vertical_edge +
-                 Maze.sprite_dimension)) in Maze.passage_positions
+                 maze.sprite_dimension)) in maze.passage_positions
 
     def nearest_lower_spot_empty(self):
         """Returns True if the nearest lower (x,y) couple to the hero, is within
-        passage_positions list,containing empty spots of the Maze"""
+        passage_positions list,containing empty spots of the maze"""
         return ((self.x -
                  self.distance_to_horizontal_edge), self.y +
-                Maze.sprite_dimension -
-                self.distance_to_vertical_edge) in Maze.passage_positions
+                maze.sprite_dimension -
+                self.distance_to_vertical_edge) in maze.passage_positions
 
     def picks_up(self, object):
         """Returns True if the hero reachs the position of an object"""
@@ -120,7 +120,7 @@ class Hero:
     def finds_the_exit(self):
         """Returns True if the hero reachs the maze exit"""
         return [(self.x - self.distance_to_horizontal_edge,
-                 self.y - self.distance_to_vertical_edge)] == Maze.exit
+                 self.y - self.distance_to_vertical_edge)] == maze.exit
 
 
 class Enemy:
@@ -128,10 +128,10 @@ class Enemy:
     def __init__(self):
         self.width = 32
         self.height = 36
-        self.x = Maze.enemy_location[0][0] + \
-            (Maze.sprite_dimension - self.width) / 2
-        self.y = Maze.enemy_location[0][1] + \
-            (Maze.sprite_dimension - self.height) / 2
+        self.x = maze.enemy_location[0][0] + \
+            (maze.sprite_dimension - self.width) / 2
+        self.y = maze.enemy_location[0][1] + \
+            (maze.sprite_dimension - self.height) / 2
         self.position = (self.x, self.y)
         self.image = st.pygame.image.load("Gardien.png")
 
@@ -146,7 +146,7 @@ class Object:
     # Make this property a class property, so it is not recreated with each
     # instance to avoid a possible case where two or more objects are in the
     # same location
-    random_positions = sample(Maze.objects_locations, Number)
+    random_positions = sample(maze.objects_locations, Number)
 
     def __init__(self, index, image):
         """Defines object attributes"""
@@ -159,10 +159,10 @@ class Object:
         self.width = 30
         self.height = 30
         self.distance_to_horizontal_edge = (
-            Maze.sprite_dimension - self.width) / 2
+            maze.sprite_dimension - self.width) / 2
         self.distance_to_vertical_edge = (
-            Maze.sprite_dimension - self.height) / 2
-        # Choose randomly, three (x,y) couples from empty spot of the Maze.
+            maze.sprite_dimension - self.height) / 2
+        # Choose randomly, three (x,y) couples from empty spot of the maze.
         # Then,depending on the object index, assign an (x,y)
         # from this list to this object
         # Center the object in the empty spot

@@ -5,8 +5,8 @@
 import game
 
 # Create a game instance
-Escape = game.Game()
+escape = game.Game()
 # launch the game and quit if the player quits
-Escape.main()
+escape.main()
 game.ch.st.pygame.quit()
 quit()
